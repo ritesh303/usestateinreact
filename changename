@@ -1,0 +1,26 @@
+import React from 'react';
+import { useState } from 'react';
+import './App.css';
+
+function App() {
+  //var Myname='ritesh'
+  const [Myname,SetMyName]=useState('ritesh')
+  const  eventhandler=()=>{
+
+    let val=Myname;
+
+    (val==='ritesh')?SetMyName('sinha'):SetMyName('ritesh');
+    
+    
+
+  }
+  
+  return (
+    <div className="App">
+      <h1>{Myname}</h1>
+      <button onClick={eventhandler}>Click here to change name</button>
+    </div>
+  );
+}
+
+export default App;
