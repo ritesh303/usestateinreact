@@ -1,0 +1,128 @@
+import {useEffect, useState } from 'react'
+import './Tictactoe.css'
+const Tictactoe=()=>{
+    
+
+    const [Turn,SetTurn]=useState('x')
+    const [Cells,SetCells]=useState(Array(9).fill(""))
+    const[Win,SetWin]=useState('')
+    //console.log(Cells)
+    useEffect(()=>{
+        checkforwinner()
+
+    },[Cells])
+    const reloadgame=()=>{
+        SetTurn('x')
+        SetWin('') 
+        SetCells(Array(9).fill(""))
+    }
+    const checkforwinner=(cells)=>{
+        if(
+            Cells[0]===Cells[1]&&
+            Cells[1]===Cells[2]&&
+            Cells[0]!==' '
+        ){
+            SetWin(`${Cells[0]} HAS WON`)
+        } else if (
+            Cells[3]===Cells[4]&&
+            Cells[4]===Cells[5]&&
+            Cells[3]!==' '
+
+        ){
+            SetWin(`${Cells[3]} HAS WON`)
+        }  else if (
+            Cells[6]===Cells[7]&&
+            Cells[7]===Cells[8]&&
+            Cells[3]!==' '
+
+        ){
+            SetWin(`${Cells[6]} HAS WON`)
+        }  else if (
+            Cells[0]===Cells[3]&&
+            Cells[3]===Cells[6]&&
+            Cells[0]!==' '
+
+        ){
+            SetWin(`${Cells[0]} HAS WON`)
+        }  else if (
+            Cells[2]===Cells[5]&&
+            Cells[5]===Cells[8]&&
+            Cells[2]!==' '
+
+        ){
+            SetWin(`${Cells[2]} HAS WON`)
+        }  else if (
+            Cells[1]===Cells[4]&&
+            Cells[4]===Cells[7]&&
+            Cells[3]!==' '
+
+        ){
+            SetWin(`${Cells[1]} HAS WON`)
+        }
+        
+    }
+    
+
+    const handleclick=(num)=>{
+        if(Cells[num] !== ""){
+            alert('Already clicked')
+            return
+        }
+
+        let newcell=[...Cells]
+        if (Turn==='x'){
+            newcell[num]='x'
+            SetTurn('O')
+        } else{
+            newcell[num]='0'
+            SetTurn('x')
+        }
+        console.log(newcell)
+        SetCells(newcell)
+
+     
+    }
+    //console.log(SetCells)
+    
+
+    const Cell=({num})=>{
+        return <td onClick={()=>handleclick(num)} className="cell">{Cells[num]}</td>
+    }
+
+    return(
+        <div class="cell-container">
+            <table>
+                <tr>
+                    <Cell num={0}/>
+                    <Cell num={1}/>
+                    <Cell num={2}/>
+                </tr>
+                    
+                <tr>
+                    <Cell num={3}/>
+                    <Cell num={4}/>
+                    <Cell num={5}/>
+                </tr>
+                <tr>
+                    <Cell num={6}/>
+                    <Cell num={7}/>
+                    <Cell num={8}/>
+                </tr>
+                
+                
+            </table>
+            {
+                Win &&(
+                    <div>
+                        <h1>{Win}</h1>
+                        <button onClick={reloadgame}>Reload</button>
+                    </div>   
+                )
+            }
+            
+        </div>
+    )
+
+}
+
+export default Tictactoe
